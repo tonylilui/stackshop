@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const { resolve } = require("path");
+var nodeModulesDir = "node_modules";
 // Replace if using a different env file or config
 const env = require("dotenv").config({ path: "./.env" });
 
@@ -8,7 +9,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2022-08-01",
 });
 
-app.use(express.static(process.env.STATIC_DIR));
+app.use("/node_modules", express.static(nodeModulesDir));
 
 app.get("/", (req, res) => {
   const path = resolve(process.env.STATIC_DIR + "/index.html");
